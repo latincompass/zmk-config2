@@ -1,28 +1,10 @@
-# This file generates the GitHub Actions matrix.
-# For simple board + shield combinations, add them to the top level board and
-# shield arrays, for more control, add individual board + shield combinations
-# to the `include` property. You can also use the `cmake-args` property to
-# pass flags to the build command, `snippet` to add a Zephyr snippet, and
-# `artifact-name` to assign a name to distinguish build outputs from each other:
-#
-# board: [ "nice_nano" ]
-# shield: [ "corne_left", "corne_right" ]
-# include:
-#   - board: bdn9_rev2
-#   - board: nice_nano
-#     shield: reviung41
-#   - board: nice_nano
-#     shield: corne_left
-#     snippet: studio-rpc-usb-uart
-#     cmake-args: -DCONFIG_ZMK_STUDIO=y
-#     artifact-name: corne_left_with_studio
-#
-builds:
-  # 键盘主机端固件（XIAO BLE作为外设）
-  - board: seeed/xiao_ble
-    shield: custom_keyboard_peripheral
-    config: peripheral.conf
-  # 接收器固件（XIAO BLE作为中心设备）
-  - board: seeed/xiao_ble
-    shield: custom_keyboard_central
-    config: central.conf
+include:
+  # 1. 键盘主机端（按键 + 蓝牙发射）
+  - board: xiao_ble
+    suffix: keyboard
+    cmake-args: -DCONFIG_ZMK_BLE_PERIPHERAL=y -DCONFIG_ZMK_KEYBOARD=y
+  
+  # 2. USB 接收器端（插电脑 + 蓝牙接收）
+  - board: xiao_ble
+    suffix: dongle
+    cmake-args: -DCONFIG_ZMK_BLE_CENTRAL=y -DCONFIG_ZMK_USB=y -DCONFIG_ZMK_KEYBOARD=n
