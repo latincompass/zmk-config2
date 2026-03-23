@@ -1,10 +1,8 @@
 include:
-  # 1. 键盘主机端（按键 + 蓝牙发射）
   - board: xiao_ble
+    shield: keyboard_left
     suffix: keyboard
-    cmake-args: -DCONFIG_ZMK_BLE_PERIPHERAL=y -DCONFIG_ZMK_KEYBOARD=y
-  
-  # 2. USB 接收器端（插电脑 + 蓝牙接收）
+
   - board: xiao_ble
+    shield: dongle_left
     suffix: dongle
-    cmake-args: -DCONFIG_ZMK_BLE_CENTRAL=y -DCONFIG_ZMK_USB=y -DCONFIG_ZMK_KEYBOARD=n
