@@ -1,0 +1,32 @@
+/* 适配XIAO BLE的引脚映射（示例为34键布局） */
+&xiao_d {
+    /* 按键矩阵定义：行=D0-D5，列=D6-D11 */
+    keymatrix: keymatrix {
+        compatible = "zmk,keymatrix";
+        row-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>,
+                    <&xiao_d 1 GPIO_ACTIVE_LOW>,
+                    <&xiao_d 2 GPIO_ACTIVE_LOW>,
+                    <&xiao_d 3 GPIO_ACTIVE_LOW>,
+                    <&xiao_d 4 GPIO_ACTIVE_LOW>,
+                    <&xiao_d 5 GPIO_ACTIVE_LOW>;
+        col-gpios = <&xiao_d 6 GPIO_ACTIVE_HIGH>,
+                    <&xiao_d 7 GPIO_ACTIVE_HIGH>,
+                    <&xiao_d 8 GPIO_ACTIVE_HIGH>,
+                    <&xiao_d 9 GPIO_ACTIVE_HIGH>,
+                    <&xiao_d 10 GPIO_ACTIVE_HIGH>,
+                    <&xiao_d 11 GPIO_ACTIVE_HIGH>;
+    };
+};
+
+/* 启用BLE接收器模式 */
+&bluetooth {
+    compatible = "zmk,bluetooth-central"; /* 接收器端配置为中心设备 */
+    zmk,ble-role = "central";
+};
+
+/* 键盘主机端配置（外设模式） */
+/* 若为主机端，需将ble-role改为"peripheral" */
+// &bluetooth {
+//     compatible = "zmk,bluetooth-peripheral";
+//     zmk,ble-role = "peripheral";
+// };
