@@ -17,7 +17,6 @@
 #     cmake-args: -DCONFIG_ZMK_STUDIO=y
 #     artifact-name: corne_left_with_studio
 #
-file_format: "1"
 builds:
   # 键盘主机端固件（XIAO BLE作为外设）
   - board: seeed/xiao_ble
